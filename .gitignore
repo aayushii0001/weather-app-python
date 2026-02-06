@@ -17,3 +17,4 @@ Thumbs.db
 # Large data files
 *.json
 !data/city_sample.json
+!indian_cities_sample.json
