@@ -76,6 +76,13 @@ python weather_app.py
 ```
 
 ---
+## 📸 Preview
+<img width="471" height="594" alt="Screenshot 2026-02-06 151159" src="https://github.com/user-attachments/assets/b442b089-342a-4454-9670-8a437b280639" />
+
+
+---
+
+---
 
 ## 🎯 Key Learning Outcomes
 
