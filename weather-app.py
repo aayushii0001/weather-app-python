@@ -6,7 +6,10 @@ import json
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout
 from PyQt5.QtCore import Qt
 from requests import HTTPError, RequestException
+from dotenv import load_dotenv
+import os
 
+load_dotenv()
 
 class WeatherApp(QWidget):
     aliases = {
@@ -26,7 +29,7 @@ class WeatherApp(QWidget):
         self.emoji_label = QLabel(self)
         self.description_label = QLabel(self)
 
-        with open("data/indian_cities.json", "r", encoding="utf-8") as f:
+        with open("data/indian_cities_sample.json", "r", encoding="utf-8") as f:
             self.indian_cities = json.load(f)
 
         self.initUI()
@@ -126,7 +129,8 @@ class WeatherApp(QWidget):
         return None, None
 
     def get_weather(self):
-        api_key = "YOUR_API_KEY"  # your key
+        api_key= os.getenv("WEATHER_API_KEY")
+       
         user_input = self.city_input.text()
 
         city_id, pretty_name = self.find_city_id(user_input)
@@ -137,8 +141,6 @@ class WeatherApp(QWidget):
         else:
             # Use city ID if found
             url = f"https://api.openweathermap.org/data/2.5/weather?id={city_id}&appid={api_key}&units=metric"
-
-        url = f"https://api.openweathermap.org/data/2.5/weather?id={city_id}&appid={api_key}&units=metric"
 
         try:
             response = requests.get(url, timeout=10)
@@ -210,8 +212,6 @@ class WeatherApp(QWidget):
         self.temperature_label.setText(f"{city_name}\n{temp:.1f}°C")
         self.emoji_label.setText(emoji)
         self.description_label.setText(desc.capitalize())
-
-
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
